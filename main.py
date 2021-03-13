@@ -10,7 +10,7 @@ from datetime import timedelta
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
-from models import Event
+from models import ForumPost
 #remember, you can get this by searching for jinja2 google app engine
 jinja_current_dir = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -44,10 +44,9 @@ class CreatePostHandler(webapp2.RequestHandler):
 #All Active Post Handler
 class AllPostsHandler(webapp2.RequestHandler):
    def get(self):
-       start_template = jinja_current_dir.get_template("html/myevents.html")
-       logged_in_user = users.get_current_user()
-       events = Event.query().filter(Event.owner_id == logged_in_user.user_id()).fetch()
-       self.response.write(start_template.render({'my_events': events}))
+       start_template = jinja_current_dir.get_template("html/active.html")
+       posts = ForumPost.query()
+       self.response.write(start_template.render({'all_posts': posts}))
 #-------------------------------------------------------------------
 #App Engine Site Configuration
 app = webapp2.WSGIApplication([

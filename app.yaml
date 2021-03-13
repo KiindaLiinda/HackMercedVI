@@ -1,6 +1,4 @@
 #Metadata
-application: userapp
-version: 1
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -11,6 +9,12 @@ handlers:
 - url: /css
   static_dir: css
 
+- url: /assets/css
+  static_dir: css
+
+- url: /images
+  static_dir: static/images
+
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
@@ -20,7 +24,6 @@ handlers:
 
 - url: .*
   script: main.app
-  login: required
 
 #Libraries
 libraries:

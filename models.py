@@ -13,4 +13,4 @@ class ForumPost(ndb.Model):
     name = ndb.StringProperty(required=True)
     title = ndb.StringProperty(required=True)
     description = ndb.StringProperty(required=True)
-    date = nbd.DateTimeProperty(required=True)
+    date = ndb.DateTimeProperty(required=True)
