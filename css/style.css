@@ -15,7 +15,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding: 50px;
-  width: 1000px;
+  width: 50%;
   text-align: center;
 }
 
@@ -28,13 +28,13 @@ body {
 }
 
 #titleInput{
-  width: 300px;
+  width: 75%;
   border: 3px solid black;
 }
 
 #contentInput{
   height: 300px;
-  width: 600px;
+  width: 100%;
   border: 3px solid black;
 }
 
