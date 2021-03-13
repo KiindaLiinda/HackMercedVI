@@ -1,0 +1,45 @@
+body {
+  font-family: Arial;
+  margin: 0;
+}
+
+.header {
+  padding: 60px;
+  text-align: center;
+  background: #078497;
+  color: white;
+  font-size: 30px;
+}
+
+.content {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 50px;
+  width: 1000px;
+  text-align: center;
+}
+
+.postcard{
+  font-size: 18px;
+}
+
+#nameInput{
+  border: 3px solid black;
+}
+
+#titleInput{
+  width: 300px;
+  border: 3px solid black;
+}
+
+#contentInput{
+  height: 300px;
+  width: 600px;
+  border: 3px solid black;
+}
+
+#submitInput{
+  border-radius: 8px;
+  border: 3px solid black;
+  font-size: 30px;
+}
