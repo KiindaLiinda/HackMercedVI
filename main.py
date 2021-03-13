@@ -17,25 +17,46 @@ jinja_current_dir = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 #-------------------------------------------------------------------
-
-#Create Post Handlers
-class CreatePostHandler(webapp2.RequestHandler):
-    def get(self):
-        start_template = jinja_current_dir.get_template("html/Forum.html")
-        self.response.write(start_template.render())
-    def post(self):
-        name = self.request.get('nameInput')
-        current_date = self.request.get('')
-        title = self.request.get('titleInput')
-        description = self.request.get('contentInput')
-        if nameInput and titleInput and contentInput:
-            ForumPost =
-#-------------------------------------------------------------------
 #Homepage Handler
 class HomepageHandler(webapp2.RequestHandler):
     def get(self):
         start_template = jinja_current_dir.get_template("html/index.html")
         self.response.write(start_template.render())
+
+#Create Post Handler
+class CreatePostHandler(webapp2.RequestHandler):
+    def get(self):
+        start_template = jinja_current_dir.get_template("html/Forum.html")
+        self.response.write(start_template.render())
+    def post(self):
+        post_name = self.request.get('nameInput')
+        post_current_date = self.request.get('')
+        post_title = self.request.get('titleInput')
+        post_description = self.request.get('contentInput')
+        if nameInput and titleInput and contentInput:
+            new_post = ForumPost(name=post_name, title=post_title, description=post_description, date=post_current_date)
+            new_post.put()
+            new_post_html = "<html><body><a target='_blank' href='active.html'>Test Event Link</a></body></html>"
+            self.response.write(new_post_html)
+        else:
+            self.redirect('/newevent')
+
+#All Active Post Handler
+class AllPostsHandler(webapp2.RequestHandler):
+   def get(self):
+       start_template = jinja_current_dir.get_template("html/myevents.html")
+       logged_in_user = users.get_current_user()
+       events = Event.query().filter(Event.owner_id == logged_in_user.user_id()).fetch()
+       self.response.write(start_template.render({'my_events': events}))
+#-------------------------------------------------------------------
+#App Engine Site Configuration
+app = webapp2.WSGIApplication([
+    ('/', HomepageHandler),
+    ('/create', CreatePostHandler),
+    ('/active', AllPostsHandler)
+], debug=True)
+
+#-------------------------------------------------------------------
 
 #Dashboard Handler
 class DashboardHandler(webapp2.RequestHandler):
@@ -70,23 +91,3 @@ class NewEventHandler(webapp2.RequestHandler):
             self.response.write(calendar_html % calendar_link)
         else:
             self.redirect('/newevent')
-
-class AllEventsHandler(webapp2.RequestHandler):
-   def get(self):
-       start_template = jinja_current_dir.get_template("html/myevents.html")
-       logged_in_user = users.get_current_user()
-       events = Event.query().filter(Event.owner_id == logged_in_user.user_id()).fetch()
-       self.response.write(start_template.render({'my_events': events}))
-
-class ComingSoonHandler(webapp2.RequestHandler):
-   def get(self):
-       start_template = jinja_current_dir.get_template("html/comingsoon.html")
-       self.response.write(start_template.render())
-
-app = webapp2.WSGIApplication([
-    ('/', HomepageHandler),
-    ('/dashboard', DashboardHandler),
-    ('/newevent', NewEventHandler),
-    ('/myevents', AllEventsHandler),
-    ('/comingsoon', ComingSoonHandler),
-], debug=True)
