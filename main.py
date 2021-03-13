@@ -24,8 +24,12 @@ class CreatePostHandler(webapp2.RequestHandler):
         start_template = jinja_current_dir.get_template("html/Forum.html")
         self.response.write(start_template.render())
     def post(self):
-        
-
+        name = self.request.get('nameInput')
+        current_date = self.request.get('')
+        title = self.request.get('titleInput')
+        description = self.request.get('contentInput')
+        if nameInput and titleInput and contentInput:
+            ForumPost =
 #-------------------------------------------------------------------
 #Homepage Handler
 class HomepageHandler(webapp2.RequestHandler):
