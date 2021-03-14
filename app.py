@@ -47,7 +47,9 @@ class Users(UserMixin, db.Model):
 class Threads(db.Model):
     __tablename__ = "Threads"
     id = db.Column(db.Integer, primary_key=True)
+    views = db.Column(db.Integer, default=0)
     title = db.Column(db.String(89))
+    url = db.Column(db.String(89))
     addedTimeStamp = db.Column(db.DateTime, default=datetime.now)
     #we might need a different database type to hold comments (can be very long)
     description = db.Column(db.String(3000))
@@ -147,8 +149,11 @@ def make_thread():
     if request.method == "POST":
         if(request.form['title'] and request.form['description']):
             newThread = Threads(title=request.form['title'],
+                                url = request.form['title'].replace(" ", "-"),
                                 description=request.form['description'],
                                 owner=current_user)
+            db.session.add(newThread)
+            db.session.commit()
     else:
         return render_template("createpost.html")
 
@@ -158,6 +163,22 @@ def make_thread():
 
 
     return render_template('dashboard.html')
+
+@app.route("/<threadTitle>", methods=['GET','POST'])
+@login_required
+def show_thread(threadTitle):
+
+    query = Threads.query.filter_by(url = threadTitle).first()
+
+    if query is None:
+        return redirect(url_for("dashboard_home"))
+    else:
+        views = query.views
+        threadDict = {"title": query.title, "description": query.description, "replies": query.replies, "views": views}
+        query.views = query.views + 1
+        db.session.commit()
+
+    return render_template('post.html', threadDict = threadDict)
 
 
 if __name__ == '__main__':
