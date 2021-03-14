@@ -15,25 +15,28 @@
 
     <link href="https://fonts.googleapis.com/css?family=Baskervville&display=swap" rel="stylesheet">
 
-    {% if title %}
-        <title>Music Web App - {{ title }}</title>
-    {% else %}
-        <title>Music Web App</title>
-    {% endif %}
+
+        <title>Build UCM!</title>
+
 </head>
 <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-light bg-steel fixed-top">
         <div class="container">
-          <img class="navbar-brand mr-4" src="./static/goFloLogo.png">
+          <img width=100 height=100 class="navbar-brand mr-4" src="./static/UCMBuildLogo.png">
+          <br><br><br>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               {% if current_user.is_authenticated %}
-              <a class="nav-item nav-link" href="/dashboard">Dashboard</a>
-              <a class="nav-item nav-link" href="/dashboard">Explore</a>
+              <a class="nav-item nav-link" href="/dashboard">Home</a>
+              <a class="nav-item nav-link" href="/login">Forum</a>
+              <a class="nav-item nav-link" href="/login">Security/CatCops</a>
+              <a class="nav-item nav-link" href="/login">Sports</a>
+              <a class="nav-item nav-link" href="/login">Study Sessions</a>
+              <a class="nav-item nav-link" href="/login">Movies</a>
               {% else %}
               <a class="nav-item nav-link" href="/login">Home</a>
               <a class="nav-item nav-link" href="/login">About</a>
@@ -53,9 +56,10 @@
         </div>
       </nav>
     </header>
+    <br><br><br><br><br>
     <main role="main" class="container">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages%}
               {% for category, message in messages %}
@@ -67,7 +71,7 @@
           {% endwith %}
           {% block content %}{% endblock %}
         </div>
-        
+
 
       </div>
     </main>
