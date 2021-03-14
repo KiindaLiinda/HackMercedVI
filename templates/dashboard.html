@@ -110,6 +110,7 @@
    align-items: center;
    font-size: .8em;
    justify-content: center;
+
    color: #8BA989;
    }
    .controls .play, .controls .pause {
@@ -161,35 +162,9 @@
    }
 </style>
 <div style='text-align: center' class="content-section">
-  <p class='text-muted'><a class="nav-item nav-link" href="/dashboard">LOoe</a></p>
-   <div id="player">
-      <div class="album">
-         <div class="heart"><i class="fas fa-heart"></i></div>
-      </div>
-      <div class="info">
+  <p class='text-muted'><a class="nav-item nav-link" href="/dashboard">{{current_user.username}}</a></p>
 
-         <div style="padding: 10px 0px 10px 0px" class="currently-playing">
-            <h2 class="song-name">Wake N' Bake</h2>
-            <h3 class="artist-name">DowntownDev$ ft. LOoe</h3>
-         </div>
-         <div class="controls">
-            <div class="option"><i class="fas fa-bars"></i></div>
-            <div class="volume"><i class="fas fa-volume-up"></i></div>
-
-            <div onclick="document.getElementById('mediaPlayer').play()" class="play"><i class="fas fa-play"></i></div>
-            <div onclick="document.getElementById('mediaPlayer').pause()" class="pause"><i class="fas fa-pause"></i></div>
-
-            <div class="shuffle"><i class="fas fa-random"></i></div>
-            <div class="add"><i class="fas fa-plus"></i></div>
-        </div>
-        <audio id="mediaPlayer">
-           <source src="{{ url_for('audio') }}" type="audio/x-wav;codec=pcm">
-           Your browser does not support the audio element.
-        </audio>
-      </div>
-   </div>
-   <br>
-   <p class='text-muted'>12:09 P.M, Los Angeles</p>
+  <a href="./thread/new">Make a new thread </a>
 
 </div>
 

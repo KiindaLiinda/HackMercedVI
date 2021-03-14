@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask import Flask
-from flask import request, Response, render_template, redirect, url_for, flash
+from flask import request, Response, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import current_user, login_required, login_user, LoginManager, logout_user, UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -44,15 +44,19 @@ class Users(UserMixin, db.Model):
 ###***** Users Table ******###
 
 ###***** Tracks Table ******###
-class Posts(db.Model):
-    __tablename__ = "Posts"
-
+class Threads(db.Model):
+    __tablename__ = "Threads"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(89))
     addedTimeStamp = db.Column(db.DateTime, default=datetime.now)
     #we might need a different database type to hold comments (can be very long)
-    comments = db.Column(db.String(3000))
+    description = db.Column(db.String(3000))
+    '''{"owner": INT , "comment": String},{},{},{}'''
+    replies = db.Column(db.String(3000), default=" ")
     upvotes = db.Column(db.Integer, default=0)
+    downupvotes = db.Column(db.Integer, default=0)
+    usersUpvoted = db.Column(db.String(3000), default=" ")
+    userDownvoted = db.Column(db.String(3000), default=" ")
     owner_id = db.Column(db.Integer, db.ForeignKey('Users.id'), nullable=True)
     owner = db.relationship('Users', foreign_keys=owner_id)
 ###***** Tracks Table ******###
@@ -136,6 +140,24 @@ def login():
 
 
     return render_template('login.html', form=form)
+
+@app.route("/thread", methods=['GET','POST'])
+@login_required
+def make_thread():
+    if request.method == "POST":
+        if(request.form['title'] and request.form['description']):
+            newThread = Threads(title=request.form['title'],
+                                description=request.form['description'],
+                                owner=current_user)
+    else:
+        return render_template("createpost.html")
+
+
+
+
+
+
+    return render_template('dashboard.html')
 
 
 if __name__ == '__main__':

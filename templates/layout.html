@@ -67,39 +67,7 @@
           {% endwith %}
           {% block content %}{% endblock %}
         </div>
-        {% if current_user.is_authenticated %}
-        <div class="col-md-4">
-          <div class="content-section">
-            <br>
-            <h3>{{ current_user.username }}</h3>
-
-            <p class='text-muted'>Select an option
-              <ul class="list-group">
-                <li style="margin: 0px 0px 5px 0px" class="btn btn-outline-info">My Tracks</li>
-                <li style="margin: 0px 0px 5px 0px" class="btn btn-outline-info">Upload Track</li>
-                <li style="margin: 0px 0px 5px 0px" class="btn btn-outline-info">Explore Tracks</li>
-                <li style="margin: 0px 0px 5px 0px" class="btn btn-outline-info">Feed</li>
-              </ul>
-            </p>
-          </div>
-        </div>
-
-        {% else %}
-        <div class="col-md-4">
-          <div class="content-section">
-            <br>
-            <h3>GoFlo!</h3>
-            <p class='text-muted'>Don't miss us
-              <ul class="list-group">
-                <li style="margin: 0px 0px 5px 0px" class="btn btn-outline-info">Sell</li>
-                <li style="margin: 0px 0px 5px 0px" class="btn btn-outline-info">Produce</li>
-                <li style="margin: 0px 0px 5px 0px" class="btn btn-outline-info">Share</li>
-                <li style="margin: 0px 0px 5px 0px" class="btn btn-outline-info">Collaborate</li>
-              </ul>
-            </p>
-          </div>
-        </div>
-        {% endif %}
+        
 
       </div>
     </main>
