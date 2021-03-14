@@ -141,6 +141,8 @@
    .play:hover, .pause:hover, .next:hover, .previous:hover, .option:hover, .add:hover, .volume:hover, .shuffle:hover {
    color: #557c5f;
    }
+
+
    footer {
    position: absolute;
    bottom: 0;
@@ -160,11 +162,27 @@
    footer a:hover {
    color: #49654D;
    }
+
+   .login {
+     background-color: #004A82;
+     color: white;
+     padding: 14px 20px;
+     margin: 8px 0;
+     border: none;
+     cursor: pointer;
+     width: 100%;
+   }
 </style>
 <div style='text-align: center' class="content-section">
-  <p class='text-muted'><a class="nav-item nav-link" href="/dashboard">{{current_user.username}}</a></p>
+  <h1 class='text-muted'><a class="nav-item nav-link" href="/dashboard">{{current_user.username}}</a></h1>
 
-  <a href="./thread">Make a new thread </a>
+  <a class="login" href="./thread">Make a new thread </a>
+  <br><br><br><br>
+
+  <h4> Explore Threads </h4>
+  {%for thread in threads%}
+  <a href="../{{thread.url}}">{{thread.title}} | views: {{thread.views}}</a>
+  {%endfor%}
 
 </div>
 

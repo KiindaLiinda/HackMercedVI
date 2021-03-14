@@ -76,7 +76,9 @@ def logout():
 @app.route("/dashboard")
 @login_required
 def dashboard_home():
-    return render_template('dashboard.html')
+    threads = Threads.query.order_by(Threads.views.desc()).all()
+
+    return render_template('dashboard.html', threads=threads)
 
 @app.route('/signup', methods= ['GET', 'POST'])
 def register():
